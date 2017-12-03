@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('admin.home');
+    });
+});
+
+
+//Notifications
+Route::get('/getNotifications', 'NotificationController@getNotifications');
+Route::post('deleteNotification', 'NotificationController@deleteNotification');
