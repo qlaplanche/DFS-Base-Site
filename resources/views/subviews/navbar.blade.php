@@ -6,6 +6,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+          @if (Auth::check())
+            <li class="nav-item">
+              <span class="nav-link">Hello {{ Auth::user()->firstname}}</span>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout
+              </a>
+
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  {{ csrf_field() }}
+              </form>
+            </li>
+          @else
             <li class="nav-item active">
               <a class="nav-link" href="#">Home
                 <span class="sr-only">(current)</span>
@@ -20,6 +39,13 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url('/register')}}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url('/login')}}">Login</a>
+            </li>
+            @endif
           </ul>
         </div>
       </div>
