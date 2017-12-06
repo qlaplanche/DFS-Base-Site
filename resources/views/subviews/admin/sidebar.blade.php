@@ -19,7 +19,7 @@
 		<a href="#"><i class="fa fa-user" aria-hidden="true"></i> Home</a>
 	</li>
 	<li>
-		<a href="#">Users</a>
+		<a href="{{ route('users') }}">Users</a>
 	</li>
 	<li>
 		<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Page block</a>

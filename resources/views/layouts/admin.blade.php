@@ -29,7 +29,7 @@
 			@include('subviews.admin.sidebar')
 		</nav>
 
-		<div id="content">
+		<div id="content" class="container-fluid">
       @if(Session::has('message'))
 		    <p class="alert alert-info">{{ Session::get('message') }}</p>
 		  @endif 

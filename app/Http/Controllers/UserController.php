@@ -21,6 +21,16 @@ class UserController extends Controller
     }
 
     /**
+     * Get information and all posts about a user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUser($id)
+    {
+        return view('profile', ['user' => User::findOrFail($id)]);      
+    }
+
+    /**
      * Get information about a user
      *
      * @return \Illuminate\Http\Response
