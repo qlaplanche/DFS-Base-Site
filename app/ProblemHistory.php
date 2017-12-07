@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProblemHistory extends Model
 {
     protected $fillable = [
-        'situation', 'heure',
+        'situation', 'occured_at', 'event_id', 'participant_id',
     ];
     protected $table = 'problem_history';
 }
