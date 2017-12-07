@@ -16,6 +16,12 @@ class CreateProblemHistoriesTable extends Migration
         Schema::create('problem_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+	    $table->double('latitude', 3, 7);
+	    $table->double('longitude', 3, 7);
+	    $table->date('occured_at');
+	    $table->enum('situation', ['ok', 'warning', 'critical', 'meteo']);
+	    $table->longText('description');
+
         });
     }
 
