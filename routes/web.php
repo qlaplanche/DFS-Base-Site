@@ -79,3 +79,7 @@ Route::get('/event/delete/{event_id}', [
 //Notifications
 Route::get('/getNotifications', 'NotificationController@getNotifications');
 Route::post('deleteNotification', 'NotificationController@deleteNotification');
+
+
+Route::match(['get', 'post'], '/botman', 'BotManController@handle');
+Route::get('/botman/tinker', 'BotManController@tinker');
