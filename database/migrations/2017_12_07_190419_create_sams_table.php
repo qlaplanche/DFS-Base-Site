@@ -14,7 +14,9 @@ class CreateSamsTable extends Migration
     public function up()
     {
         Schema::create('sams', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('sam_id');
+	    $table->integer('participant_id');
+	    $table->integer('event_id');
             $table->timestamps();
         });
     }
