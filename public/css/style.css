@@ -1,3 +1,7 @@
 #content.container {
     margin-top: 90px;
 }
+
+.navbar-brand>span {
+    font-size: 12px;
+}
