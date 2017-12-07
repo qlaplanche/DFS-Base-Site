@@ -21,6 +21,11 @@ class CreateProblemHistoriesTable extends Migration
 	    $table->date('occured_at');
 	    $table->enum('situation', ['ok', 'warning', 'critical', 'meteo']);
 	    $table->longText('description')->nullable();
+	    $table->integer('event_id')->unsigned();
+	    $table->integer('participant_id')->unsigned();
+
+            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('participant_id')->references('id')->on('participants');
 
         });
     }
