@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventPost extends Model
 {
-    protected $table = 'event_post';
+    protected $fillable = [
+        'event', 'participant', 'content',
+    ];
 }
