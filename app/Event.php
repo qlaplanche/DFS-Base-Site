@@ -14,10 +14,10 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'begin_date', 'orga_id', 'visibility',
+        'name', 'begin_date', 'orga', 'visibility',
     ];
 
     public function posts() {
-    	return $this->hasMany('App\EventPost', 'event_id');
+    	return $this->hasMany('App\EventPost', 'event');
     }
 }

@@ -14,10 +14,18 @@ class CreateSamsTable extends Migration
     public function up()
     {
         Schema::create('sams', function (Blueprint $table) {
-            $table->integer('sam_id');
-	    $table->integer('participant_id');
-	    $table->integer('event_id');
+            $table->increments('id');
+            $table->integer('sam')->unsigned();
+	        $table->integer('participant')->unsigned();
+	        $table->integer('event')->unsigned();
             $table->timestamps();
+
+        });
+
+        Schema::table('sams', function (Blueprint $table) {
+            $table->foreign('sam')->references('id')->on('participants');
+            $table->foreign('participant')->references('id')->on('participants');
+            $table->foreign('event')->references('id')->on('events');
         });
     }
 

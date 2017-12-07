@@ -16,6 +16,13 @@ class CreateEventPostsTable extends Migration
         Schema::create('event_posts', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->integer('event')->unsigned();
+            $table->integer('participant')->unsigned();
+            $table->text('content');
+
+            $table->foreign('event')->references('id')->on('events');
+            $table->foreign('participant')->references('id')->on('participants');
+
         });
     }
 
