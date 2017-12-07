@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 	<div class="container">
-		<a class="navbar-brand" href="#">Name</a>
+		<a class="navbar-brand" href="#">Name <span>Event en cours</span></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
 		 aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -9,13 +9,26 @@
 			<ul class="navbar-nav ml-auto">
 				@if (Auth::check())
 				<li class="nav-item">
-					<span class="nav-link">Hello {{ Auth::user()->firstname}}</span>
+					<a class="nav-link btn" href="/createEvent">Créér événement</a>
 				</li>
-        @if (Auth::user()->role=="admin")
-            <li class="nav-item">
-              <a class="nav-link" href="/admin">Admin</a>
-            </li>
-        @endif
+				<li class="nav-item">
+					<a class="nav-link" href="/">Accueil</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/myEvent">Mes événements</a>
+				</li>
+				<div class="dropdown-divider"></div>
+				<li class="nav-item">
+					<span class="nav-link">{{ Auth::user()->firstname}}</span>
+				</li>
+				<li class="nav-item">
+				<a class="nav-link" href="/profile">Profil</a>
+				</li>
+			@if (Auth::user()->role=="admin")
+				<li class="nav-item">
+				<a class="nav-link" href="/admin">Admin</a>
+				</li>
+			@endif
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell" aria-hidden="true"></i></a>
 					<div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -39,15 +52,6 @@
 					<a class="nav-link" href="#">Home
 						<span class="sr-only">(current)</span>
 					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">About</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Services</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Contact</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{url('/register')}}">Register</a>
