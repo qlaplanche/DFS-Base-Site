@@ -20,6 +20,11 @@
   <body>
 
     @include('subviews.navbar')
+    <div id="alerts">
+    @if(Session::has('alert-msg') && Session::has('alert-btn') && Session::has('alert-class'))
+      @include('subviews.alert')
+    @endif
+    </div>
 
     <div id="content" class="container">
         @if(Session::has('message'))
