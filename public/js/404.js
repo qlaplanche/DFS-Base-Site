@@ -165,14 +165,18 @@ var render = function(){
 	game.popTime++;
 	player.score += game.speed;
 
-	if (game.popTime > 160 - game.lifeTime/20){
+	if (game.popTime > 160 - game.lifeTime/25){
 		game.objects.push(Object.create(item));
 		var rand = Math.random();
 		game.objects[game.objects.length - 1].class = (rand > 0.5 ? 'beer' : 'wall');
 		game.objects[game.objects.length - 1].color = (rand > 0.5 ? 'yellow' : 'gray');
 		game.objects[game.objects.length - 1].img = (rand > 0.5 ? document.getElementById("res_beer") : document.getElementById("res_wall"));
 		game.objects[game.objects.length - 1].sizeX = (rand > 0.5 ? item.sizeX : (263/187)*item.sizeX);
-		game.objects[game.objects.length - 1].x = Math.random() * game.width;
+		game.objects[game.objects.length - 1].x = (Math.random() * game.width < 0 ? 0 : Math.random() * game.width);
+		if (game.objects[game.objects.length - 1].x + game.objects[game.objects.length - 1].sizeX > game.width){
+			game.objects[game.objects.length - 1].x = game.width - game.objects[game.objects.length - 1].sizeX;
+		}
+
 		game.popTime = 0;
 	}
 
@@ -252,6 +256,7 @@ var render = function(){
 	context.fillStyle = "white";
 	context.textAlign = "end";
 	context.fillText("SCORE: " + Math.round(player.score), game.width - 10, 30);
+	context.fillText("VITESSE: " + Math.round(game.speed*12) + "km/h", game.width - 10, game.height - 30);
 
 	for (var labelId in game.labels){
 		game.labels[labelId].timeLived++;
@@ -274,6 +279,7 @@ var main = function(){
 	if (game.run){
 		requestAnimationFrame(main);
 	}else{
+
 		context.font = "30pt Impact,Calibri,Geneva,Arial";
 		context.textAlign = "center";
     	context.fillStyle = "red";
@@ -295,7 +301,7 @@ var main = function(){
 	    				context.fillStyle = "white";
 	    				context.font = "18pt Impact,Calibri,Geneva,Arial";
 	    				context.fillText("Score: " + Math.round(player.score), game.width/2, game.height/4 - 30);
-	    				context.fillText("Tappez pour relancer", game.width/2, game.height/2 - 30);
+	    				context.fillText("Tappez pour relancer", game.width/2, 3*game.height/4 - 30);
 	    				game.canRestart = true;
 	    			}, 3000);
 	    		}, 200);
