@@ -70,7 +70,18 @@ Route::prefix('event')->group(function () {
 
 });
 
-Route::get('/event/edit/{user_id}', [
+Route::get('/event/join/{event_id}', [
+    'uses' => 'EventController@join',
+    'as' => 'event.join'
+]);
+
+//Post
+Route::post('/event/join/{event_id}', [
+    'uses' => 'EventController@joinPost',
+    'as' => 'event.join'
+]);
+
+Route::get('/event/edit/{event_id}', [
     'uses' => 'EventController@getEditEvent',
     'as' => 'event.edit'
 ]);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Participant;
 use App\User;
+use Auth;
+use DB;
 
 
 use Illuminate\Http\Request;
@@ -73,5 +75,50 @@ class EventController extends Controller
         $toMatch=['event_id' => $event_id, 'user_id' => $user_id];
         $participant=Participant::where($toMatch)->delete();
         return redirect()->route('event.view', ['eventid' => $event_id]);
+    }
+
+    public function join($event_id){
+        $event=Event::find($event_id);
+        return view('event.join2',['event' => $event]);
+    }
+
+    public function joinPost(Request $request,$event_id){
+        // print_r($_POST);
+        // die();
+
+
+        $validatedData = $request->validate([
+        'isSam' => 'required',
+        'needSam' => 'required',
+        ]);
+
+        $id=Auth::id();
+
+        // print_r(Event::findOrFail($event_id));
+        // die();
+
+        $participant=new Participant();
+        $participant->user_id=$id;
+        $participant->event_id=$event_id;
+        $participant->is_sam=$request->input("isSam");
+        if($request->input("isSam")==1){
+            $participant->nb_places=$request->input("nbPlaces");
+            $participant->need_sam=0;
+        }
+        else{
+            $participant->need_sam=$request->input("needSam");
+        }
+
+        $message = '';
+        if ($participant->save()) {
+            $message = 'Participation ajoutée !';
+        }
+        else{
+            $message = 'Erreur ajout participation';
+        }
+        //$request->session()->flash('status', $message);
+
+        return view('event.view', ['event' => Event::findOrFail($event_id)]);
+        //return redirect()->route('event.view', ['eventid' => Event::findOrFail($event_id)]);
     }
 }

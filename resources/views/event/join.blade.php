@@ -7,7 +7,8 @@
     </div>
     <br>
 
-    <form action="route('event.join')" method="POST" id="myForm">
+    <form action="{{route('event.join', ['event_id' => $event->id])}}" method="POST" id="myForm">
+        {{ csrf_field() }}
         <div id="step1" class="text-center">
             <h2>Peux-tu être un SAM ?</h2>
             <button onclick="onNo();" type="button" class="btn btn-danger" style="margin: 0 10px" id="no">Non</button>
