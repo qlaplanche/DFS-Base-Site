@@ -1,14 +1,20 @@
 <?php
 use App\Http\Controllers\BotManController;
+use Illuminate\Support\Facades\Auth;
 
 $botman = resolve('botman');
 
-$botman->hears('How are you', function ($bot) {
-    $bot->reply('I am fine and you?');
+$botman->hears('Comment vas tu \?', function ($bot) {
+    $bot->reply('I am fine.');
 });
 
-$botman->hears('Hi', function ($bot) {
-    $bot->reply('Helloooo!');
+$botman->hears('hi', function ($bot) {
+	$user = Auth::user()->firstname();
+    $bot->reply('Bonjour ' . $user . " !!");
 });
 
-$botman->hears('Start conversation', BotManController::class.'@startConversation');
+$botman->hears('.*meteo de {ville}', 'App\MyBotCommands@handlefoo');
+
+$botman->fallback(function($bot) {
+    $bot->reply('Sorry, I did not understand these commands');
+});
