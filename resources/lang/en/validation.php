@@ -13,6 +13,9 @@ return [
     |
     */
 
+    'valid_position'		   => 'Latitude and longitude must be both null or not null i.e. one cannot be null if the other isn\t',
+    'valid_latitude'       => 'Latitude must be between -90 and 90',
+    'valid_longitude'       => 'Latitude must be between -180 and 180',
     'is_situation_enum'    => 'The attribute must me "ok", "warning", "critical" or "meteo"',
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',
