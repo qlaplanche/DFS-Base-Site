@@ -42,20 +42,35 @@ class EventController extends Controller
      */
     public function createProblem(Request $request)
     {
-        $this->validate($request, [
-            'description' => 'required|max:200',
-            'longitude' => 'required|max:50',
-            'latitude' => 'required|max:50',
-            'situation' => 'required',
-        ]);
+	$this->validate($request, [
+		'occured_at' => 'required|date_format:Y-m-d H:i:s',
+		'situation' => 'required|is_situation_enum',
+		'description' => 'required|max:300',
+		'position' => 'valid_position',
+		'latitude' => 'valid_latitude',
+		'longitude' => 'valid_longitude',
+	    ]);
 
         $problem = new ProblemHistory();
         $problem->description = $request->input("description");
         $problem->longitude = $request->input("longitude");
         $problem->latitude = $request->input("latitude");
+	$problem->occured_at = $request->input('occured_at');
 
-        
+	$user = Auth::user();
 
+        $event = Event::join('participants', 'participants.event_id', '=', 'events.id')
+            ->join('users', 'users.id', '=', 'participants.user_id')
+            ->where('users.id', $user->id)
+            ->whereDate('begin_date', '=', date('Y-m-d'))
+            ->first();        
+
+	$problem->event_id = $request->input($event->id);
+
+	$participant = Participant::join('users', 'users.id', '=', 'participants.user_id')
+	    ->where(['users.id' => $user->id]);
+
+	$problem->participant_id = $request->input($participant->id);
 
         $message = 'There was an error';
         if ($problem->save()) {
@@ -77,6 +92,7 @@ class EventController extends Controller
 
     public function storeEvent(Request $request)
     {
+
         $this->validate($request, [
             'name' => 'required|max:100',
             'begin_date' => 'required',
