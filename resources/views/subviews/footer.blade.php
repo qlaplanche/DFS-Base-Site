@@ -1,16 +1,3 @@
-<!-- Default dropup button -->
-<!--div class="btn-group dropup fab fixed-bottom">
-  <button type="button" class="btn btn-secondary">Dropup</button>
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <div class="dropdown- dropdown-menu-right">
-    <button class="dropdown-item" type="button">Action</button>
-    <button class="dropdown-item" type="button">Another action</button>
-    <button class="dropdown-item" type="button">Something else here</button>
-  </div>
-</div-->
-
 <div class="btn-group dropup fixed-bottom fab">
 	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
 	 aria-expanded="false">
@@ -57,19 +44,20 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="heure">Heure</label>
-						<input type="date" class="form-control" name="heure" value="">
+						<label for="longitude">Longitude</label>
+						<input type="text" class="form-control" name="longitude" value="">
+					</div>
+          <div class="form-group">
+						<label for="latitude">Latitude</label>
+						<input type="text" class="form-control" name="latitude" value="">
 					</div>
 					<div class="form-group">
-						<label for="position">Position</label>
-						<input type="text" class="form-control" name="position" value="">
-					</div>
-					<div class="form-group">
-						<select class="custom-select">
-							<option selected>Open this select menu</option>
-							<option value="1">One</option>
-							<option value="2">Two</option>
-							<option value="3">Three</option>
+          <label for="situation">Situation</label>
+						<select class="custom-select" name="situation">
+							<option selected>Choisir votre situation</option>
+							<option value="warning">Incident</option>
+							<option value="critical">Incident majeur (Accident)</option>
+							<option value="meteo">Problème de météo</option>
 						</select>
 					</div>
 					<button type="submit" class="btn btn-primary">Envoyer</button>
