@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/404', function(){
+    return view('404');
+});
 
 Route::prefix('admin')->group(function () {
     Route::get('/', ['middleware' => 'admin', function () {
@@ -84,6 +87,11 @@ Route::post('/event/edit/{event_id}', [
 Route::get('/event/delete/{eventid}', [
     'uses' => 'EventController@deleteEvent',
     'as' => 'event.delete'
+]);
+
+Route::get('/event/notify/', [
+    'uses' => 'EventController@notifyEvent',
+    'as' => 'event.notify'
 ]);
 
 

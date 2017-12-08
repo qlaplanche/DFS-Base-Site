@@ -18,9 +18,6 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            session(['alert-class' => 'warning']);
-            session(['alert-msg' => 'Je suis perdu']);
-            session(['alert-btn' => 'Plus Perdu']);
             return redirect('/home');
         }
 

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\ProblemHistory;
 use App\Participant;
 use App\User;
+use DB;
 
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -24,9 +26,23 @@ class EventController extends Controller
 
     public function indexEvent()
     {
-        //Faire condition si il y a event en cours return view viewEvent avec l'id de l'envet en cours
-        //Si pas d'event en cours return view myEvents
-        return view('event.index', ['currents' => [], 'futures' => [], 'pasts' => []]);
+
+        //DB::EnableQueryLog();
+
+        $pastEvents = Event::whereDate('begin_date', "<", date('Y-m-d'))->get();
+        $currentEvents = Event::whereDate('begin_date', date('Y-m-d'))->get();
+        $futurEvents = Event::whereDate('begin_date', ">", date('Y-m-d'))->get();
+
+        // dd($pastEvents);
+        // dd($currentEvents);
+        // dd($futurEvents);
+        // die();
+
+        return view('event.index', [
+            'currents' => $currentEvents, 
+            'futures' => $futurEvents, 
+            'pasts' => $pastEvents
+        ]);
     }
 
     public function getEvent($eventid)
@@ -34,6 +50,41 @@ class EventController extends Controller
         return view('event.view', ['event' => Event::findOrFail($eventid)]);
     }
 
+    /**
+     * Create new item
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createProblem(Request $request)
+    {
+        $this->validate($request, [
+            'description' => 'required|max:200',
+            'longitude' => 'required|max:50',
+            'latitude' => 'required|max:50',
+            'situation' => 'required',
+        ]);
+
+        $problem = new ProblemHistory();
+        $problem->description = $request->input("description");
+        $problem->longitude = $request->input("longitude");
+        $problem->latitude = $request->input("latitude");
+
+        
+
+
+        $message = 'There was an error';
+        if ($problem->save()) {
+            $message = 'Problem successfully created!';
+            session(['alert-class' => 'warning']);
+            session(['alert-msg' => 'Je suis perdu']);
+            session(['alert-btn' => 'Terminée']);
+        }
+
+        return redirect()->route('item.index')->with('message', $message);
+
+    }
+
+    
     public function createEvent()
     {
         return view('event.create');
