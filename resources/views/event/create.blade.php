@@ -1,7 +1,8 @@
 @extends ("layouts.app")
 @section('content')
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<form action="rout('event.create')" method="POST" id="myForm">
+
     <h1 class="jumbotron"><span class="text-center">Creation événement<br></span></h1>
     <div class="text-center"><span class="text-success"><strong>Généralités </strong> </span> &rarr; Participants &rarr;
         Compléments
@@ -71,6 +72,7 @@
                 <button onclick="onYes();" type="button" class="btn btn-success" style="margin: 0 10px" id="yes">
                     Public
                 </button>
+                <input id="visibilite" value="-1" style="display: none;">
             </div>
 
         </div>
@@ -90,57 +92,12 @@
 
         <button type="button" class="btn btn-info" style="margin: 0 10px;"> Suivant</button>
 
+        <button onclick="submit()" type="button" class ="btn btn-info" style="margin: 0 10px;"> Terminé</button>
 
     </div>
 
-    <div id="rootwizard">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <ul>
-                        <li><a href="#tab1" data-toggle="tab">First</a></li>
-                        <li><a href="#tab2" data-toggle="tab">Second</a></li>
-                        <li><a href="#tab3" data-toggle="tab">Third</a></li>
-                        <li><a href="#tab4" data-toggle="tab">Forth</a></li>
-                        <li><a href="#tab5" data-toggle="tab">Fifth</a></li>
-                        <li><a href="#tab6" data-toggle="tab">Sixth</a></li>
-                        <li><a href="#tab7" data-toggle="tab">Seventh</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="tab-content">
-            <div class="tab-pane" id="tab1">
-                1
-            </div>
-            <div class="tab-pane" id="tab2">
-                2
-            </div>
-            <div class="tab-pane" id="tab3">
-                3
-            </div>
-            <div class="tab-pane" id="tab4">
-                4
-            </div>
-            <div class="tab-pane" id="tab5">
-                5
-            </div>
-            <div class="tab-pane" id="tab6">
-                6
-            </div>
-            <div class="tab-pane" id="tab7">
-                7
-            </div>
-            <ul class="pager wizard">
-                <li class="previous first" style="display:none;"><a href="#">First</a></li>
-                <li class="previous"><a href="#">Previous</a></li>
-                <li class="next last" style="display:none;"><a href="#">Last</a></li>
-                <li class="next"><a href="#">Next</a></li>
-            </ul>
-        </div>
-    </div>
     <br><br><br><br><br><br><br><br><br><br><br>
-
+</form>
     <script>
         function onYes() {
             document.getElementById("yes").classList.add("disabled");
@@ -158,9 +115,15 @@
 
         }
 
-        $(document).ready(function() {
-            $('#rootwizard').bootstrapWizard();
-        });
+        function submit(){
+            if(document.getElementById("yes").classList.contains("disabled"))
+                document.getElementById("visibilite").value=1;
+            else
+                document.getElementById("visibilite").value=0;
+            document.getElementById("myForm").submit();
+        }
+
+
     </script>
 
 @endsection
