@@ -21,13 +21,23 @@ class UserController extends Controller
     }
 
     /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('home');
+    }
+
+    /**
      * Get information and all posts about a user
      *
      * @return \Illuminate\Http\Response
      */
     public function getUser($id)
     {
-        return view('profile', ['user' => User::findOrFail($id)]);      
+        return view('user.profile', ['user' => User::findOrFail($id)]);      
     }
 
     /**
@@ -35,8 +45,65 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getEditProfile($id)
+    public function getEditUser($id)
     {
-        return view('editprofile', ['user' => User::findOrFail($id)]);
+        return view('user.editprofile', ['user' => User::findOrFail($id)]);
+    }
+
+    /**
+     * Edit a user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editUser(Request $request, $id)
+    {
+         $this->validate($request, [
+            'firstname' => 'required|max:50',
+            'lastname' => 'required|max:50',
+            'email' => 'required|max:300',
+        ]);
+
+        $user = User::findOrFail($id);
+        if(!$user) return redirect()->route('home')->with('message', 'This user doesn\'t exist');
+        if (Auth::id() != $user->id || Auth::user()->role != 'admin') {
+            return redirect()->route('home')->with('message', 'It is not your profile!');
+        }
+
+        $user->firstname = $request->input("firstname");
+        $user->lastname = $request->input("lastname");
+        $user->email = $request->input("email");
+        $user->update();
+        $message = 'User updated!';
+
+        return back()->with('message', $message);
+    }
+
+    /**
+     * Delete a user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if(!$user) return redirect()->route('home')->with('message', 'This user doesn\'t exist');
+        if (Auth::id() != $user->id && Auth::user()->role != 'admin') {
+            return redirect()->route('home')->with('message', 'It is not your profile!');
+        }
+
+        $user->delete();
+        return redirect()->route('user')->with('message', "User deleted!");
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function listUser()
+    {
+
+        return view('user.users', ['users' => User::all()->sortBy('id')->take(10)]);
     }
 }

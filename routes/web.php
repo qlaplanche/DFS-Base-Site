@@ -25,7 +25,7 @@ Route::get('/404', function(){
 Route::prefix('admin')->group(function () {
     Route::get('/', ['middleware' => 'admin', function () {
         return view('admin.home');
-    }]);
+    }])->name('admin');
 
     Route::get('/user', 'AdminController@listUser')->name('users');
 
@@ -51,6 +51,32 @@ Route::prefix('admin')->group(function () {
     ]);
 });
 
+Route::prefix('user')->group(function () {
+    Route::get('/', 'UserController@index')->name('user');
+
+    Route::get('/edit/{user_id}', [
+        'uses' => 'UserController@getEditUser',
+        'as' => 'user.edit'
+    ]);
+
+    //Post
+    Route::post('/edit/{user_id}', [
+        'uses' => 'UserController@editUser',
+        'as' => 'userpost.edit'
+    ]);
+
+    Route::get('/delete/{user_id}', [
+        'uses' => 'UserController@deleteUser',
+        'as' => 'user.delete'
+    ]);
+
+    Route::get('/{user_id}', [
+        'uses' => 'UserController@getUser',
+        'as' => 'user.profile'
+    ]);
+});
+
+
 // Events
 
 Route::prefix('event')->group(function () {
@@ -66,45 +92,42 @@ Route::prefix('event')->group(function () {
         'as' => 'event.create'
     ]);
 
+    Route::get('/notify/', [
+        'uses' => 'EventController@notifyEvent',
+        'as' => 'event.notify'
+    ]);
+
+    Route::get('/{event_id}/refuse/{user_id}', [
+        'uses' => 'EventController@refuse',
+        'as' => 'event.refuse'
+    ]);
+
+    Route::get('/{event_id}/deleteParticipant/{user_id}', [
+        'uses' => 'EventController@deleteParticipant',
+        'as' => 'event.participantDelete'
+    ]);
+
+    Route::post('/edit/{event_id}', [
+        'uses' => 'EventController@editEvent',
+        'as' => 'event.edit'
+    ]);
+
+    Route::get('/edit/{user_id}', [
+        'uses' => 'EventController@getEditEvent',
+        'as' => 'event.edit'
+    ]);
+
     Route::get('/{eventid}', [
         'uses' => 'EventController@getEvent',
         'as' => 'event.view'
     ])->where('id', '[0-9]+');
 
+    Route::get('/delete/{eventid}', [
+        'uses' => 'EventController@deleteEvent',
+        'as' => 'event.delete'
+    ]);
+
 });
-
-Route::get('/event/edit/{user_id}', [
-    'uses' => 'EventController@getEditEvent',
-    'as' => 'event.edit'
-]);
-
-//Post
-Route::post('/event/edit/{event_id}', [
-    'uses' => 'EventController@editEvent',
-    'as' => 'event.edit'
-]);
-
-Route::get('/event/delete/{eventid}', [
-    'uses' => 'EventController@deleteEvent',
-    'as' => 'event.delete'
-]);
-
-Route::get('/event/notify/', [
-    'uses' => 'EventController@notifyEvent',
-    'as' => 'event.notify'
-]);
-
-
-Route::get('/event/{event_id}/refuse/{user_id}', [
-    'uses' => 'EventController@refuse',
-    'as' => 'event.refuse'
-]);
-
-Route::get('/event/{event_id}/deleteParticipant/{user_id}', [
-    'uses' => 'EventController@deleteParticipant',
-    'as' => 'event.participantDelete'
-]);
-
 
 
 //Notifications
