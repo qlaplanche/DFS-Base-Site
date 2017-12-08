@@ -93,7 +93,7 @@ Route::get('/event/{event_id}/refuse/{user_id}', [
 ]);
 
 Route::get('/event/{event_id}/deleteParticipant/{user_id}', [
-    'uses' => 'EventController@refuse',
+    'uses' => 'EventController@deleteParticipant',
     'as' => 'event.participantDelete'
 ]);
 
