@@ -133,3 +133,6 @@ Route::prefix('event')->group(function () {
 //Notifications
 Route::get('/getNotifications', 'NotificationController@getNotifications');
 Route::post('deleteNotification', 'NotificationController@deleteNotification');
+
+Route::match(['get', 'post'], '/botman', 'BotManController@handle');
+Route::get('/tinker', 'BotManController@tinker');
