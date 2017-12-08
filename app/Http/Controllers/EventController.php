@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
+
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -28,5 +30,10 @@ class EventController extends Controller
         //Faire condition si il y a event en cours return view viewEvent avec l'id de l'envet en cours
         //Si pas d'event en cours return view myEvents
         return view('event.index', ['currents' => [], 'futures' => [], 'pasts' => []]);
+    }
+
+    public function getEvent($eventid)
+    {
+        return view('event.view', ['event' => Event::findOrFail($eventid)]);
     }
 }

@@ -50,25 +50,27 @@ Route::prefix('admin')->group(function () {
 
 // Events
 
-Route::get('/event', 'EventController@index')->name('events');
+Route::prefix('event')->group(function () {
+    Route::get('/', 'EventController@index')->name('events');
 
-Route::get('/event/{eventid}', [
-    'uses' => 'EventController@getUser',
-    'as' => 'event.view'
-]);
+    Route::get('/{eventid}', [
+        'uses' => 'EventController@getEvent',
+        'as' => 'event.view'
+    ]);
+});
 
-Route::get('/user/edit/{user_id}', [
+Route::get('/event/edit/{user_id}', [
     'uses' => 'EventController@getEditEvent',
     'as' => 'event.edit'
 ]);
 
 //Post
-Route::post('/user/edit/{event_id}', [
+Route::post('/event/edit/{event_id}', [
     'uses' => 'EventController@editEvent',
     'as' => 'event.edit'
 ]);
 
-Route::get('/user/delete/{event_id}', [
+Route::get('/event/delete/{event_id}', [
     'uses' => 'EventController@deleteEvent',
     'as' => 'event.delete'
 ]);
