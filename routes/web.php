@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/404', function(){
+    return view('404');
+});
 
 Route::prefix('admin')->group(function () {
     Route::get('/', ['middleware' => 'admin', function () {
@@ -51,12 +54,23 @@ Route::prefix('admin')->group(function () {
 // Events
 
 Route::prefix('event')->group(function () {
-    Route::get('/', 'EventController@index')->name('events');
+    Route::get('/', 'EventController@indexEvent')->name('events');
+
+    Route::get('/create', [
+        'uses' => 'EventController@createEvent',
+        'as' => 'event.create'
+    ]);
+
+    Route::post('/create', [
+        'uses' => 'EventController@storeEvent',
+        'as' => 'event.create'
+    ]);
 
     Route::get('/{eventid}', [
         'uses' => 'EventController@getEvent',
         'as' => 'event.view'
-    ]);
+    ])->where('id', '[0-9]+');
+
 });
 
 Route::get('/event/edit/{user_id}', [
@@ -70,10 +84,22 @@ Route::post('/event/edit/{event_id}', [
     'as' => 'event.edit'
 ]);
 
-Route::get('/event/delete/{event_id}', [
+Route::get('/event/delete/{eventid}', [
     'uses' => 'EventController@deleteEvent',
     'as' => 'event.delete'
 ]);
+
+
+Route::get('/event/{event_id}/refuse/{user_id}', [
+    'uses' => 'EventController@refuse',
+    'as' => 'event.refuse'
+]);
+
+Route::get('/event/{event_id}/deleteParticipant/{user_id}', [
+    'uses' => 'EventController@deleteParticipant',
+    'as' => 'event.participantDelete'
+]);
+
 
 
 //Notifications
