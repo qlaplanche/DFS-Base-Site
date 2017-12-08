@@ -37,6 +37,6 @@ class EventController extends Controller
 
     public function getEvent($eventid)
     {
-        return view('event.view', ['events' => Event::findOrFail($eventid)]);
+        return view('event.view', ['event' => Event::findOrFail($eventid)]);
     }
 }

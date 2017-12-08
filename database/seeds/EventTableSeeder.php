@@ -17,7 +17,7 @@ class EventTableSeeder extends Seeder
         	'description' => 'Je suis une description',
         	'place' => 'Chez la mère de Quentin',
         	'begin_date' => Carbon::now(),
-        	'orga' => 1,
+        	'orga_id' => 1,
         	'visibility' => false,
         ]);
     }

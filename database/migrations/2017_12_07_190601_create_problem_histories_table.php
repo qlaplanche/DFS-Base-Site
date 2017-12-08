@@ -16,16 +16,16 @@ class CreateProblemHistoriesTable extends Migration
         Schema::create('problem_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-	    $table->double('latitude', 10, 7)->nullable();
-	    $table->double('longitude', 10, 7)->nullable();
-	    $table->date('occured_at');
-	    $table->enum('situation', ['ok', 'warning', 'critical', 'meteo']);
-	    $table->longText('description')->nullable();
-	    $table->integer('event')->unsigned();
-	    $table->integer('participant')->unsigned();
+    	    $table->double('latitude', 10, 7)->nullable();
+    	    $table->double('longitude', 10, 7)->nullable();
+    	    $table->date('occured_at');
+    	    $table->enum('situation', ['ok', 'warning', 'critical', 'meteo']);
+    	    $table->longText('description')->nullable();
+    	    $table->integer('event_id')->unsigned();
+    	    $table->integer('participant_id')->unsigned();
 
-            $table->foreign('event')->references('id')->on('events');
-            $table->foreign('participant')->references('id')->on('participants');
+            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('participant_id')->references('id')->on('participants');
 
         });
     }
