@@ -30,8 +30,6 @@ class EventController extends Controller
         //Faire condition si il y a event en cours return view viewEvent avec l'id de l'envet en cours
         //Si pas d'event en cours return view myEvents
         return view('event.index', ['currents' => [], 'futures' => [], 'pasts' => []]);
-
-
     }
 
 
