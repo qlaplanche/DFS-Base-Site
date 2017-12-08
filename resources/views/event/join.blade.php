@@ -1,13 +1,13 @@
 @extends ("layouts.app")
 @section('content')
-    <h1 class="jumbotron">Rejoindre 'event.name'</h1>
+    <h1 class="jumbotron">Rejoindre {{$event->name}}</h1>
     <div class="text-center">
         <span class="font-weight-bold text-success" id="role">Rôle</span><span
                 style="font-size: 2rem"> &rarr; </span><span id="details">Détails</span>
     </div>
     <br>
 
-    <form action="{root}'event.join'" method="POST" id="myForm">
+    <form action="route('event.join')" method="POST" id="myForm">
         <div id="step1" class="text-center">
             <h2>Peux-tu être un SAM ?</h2>
             <button onclick="onNo();" type="button" class="btn btn-danger" style="margin: 0 10px" id="no">Non</button>
