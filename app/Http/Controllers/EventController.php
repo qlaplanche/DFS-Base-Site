@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
+
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -30,5 +32,11 @@ class EventController extends Controller
         return view('event.index', ['currents' => [], 'futures' => [], 'pasts' => []]);
 
 
+    }
+
+
+    public function getEvent($eventid)
+    {
+        return view('event.view', ['events' => Event::findOrFail($eventid)]);
     }
 }
