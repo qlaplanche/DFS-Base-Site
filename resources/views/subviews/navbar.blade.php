@@ -9,7 +9,7 @@
 			<ul class="navbar-nav ml-auto">
 				@if (Auth::check())
 				<li class="nav-item">
-					<a class="nav-link btn" href="/createEvent">Créér événement</a>
+					<a class="nav-link btn" href="{{ route('event.create')}}">Créér événement</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/">Accueil</a>
@@ -22,11 +22,11 @@
 					<span class="nav-link">{{ Auth::user()->firstname}}</span>
 				</li>
 				<li class="nav-item">
-				<a class="nav-link" href="/profile">Profil</a>
+				<a class="nav-link" href="{{route('user.profile', ['id' => Auth::user()])}}">Profil</a>
 				</li>
 			@if (Auth::user()->role=="admin")
 				<li class="nav-item">
-				<a class="nav-link" href="/admin">Admin</a>
+				<a class="nav-link" href="{{ route('admin')}}">Admin</a>
 				</li>
 			@endif
 				<li class="nav-item dropdown">
