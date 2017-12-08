@@ -15,17 +15,17 @@ class CreateSamsTable extends Migration
     {
         Schema::create('sams', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sam')->unsigned();
-	        $table->integer('participant')->unsigned();
-	        $table->integer('event')->unsigned();
+            $table->integer('sam_id')->unsigned();
+	        $table->integer('participant_id')->unsigned();
+	        $table->integer('event_id')->unsigned();
             $table->timestamps();
 
         });
 
         Schema::table('sams', function (Blueprint $table) {
-            $table->foreign('sam')->references('id')->on('participants');
-            $table->foreign('participant')->references('id')->on('participants');
-            $table->foreign('event')->references('id')->on('events');
+            $table->foreign('sam_id')->references('id')->on('participants');
+            $table->foreign('participant_id')->references('id')->on('participants');
+            $table->foreign('event_id')->references('id')->on('events');
         });
     }
 
