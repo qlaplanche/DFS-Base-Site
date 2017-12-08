@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'is_situation_enum'    => 'The attribute must me "ok", "warning", "critical" or "meteo"',
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',
     'after'                => 'The :attribute must be a date after :date.',
