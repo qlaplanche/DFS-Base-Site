@@ -9,7 +9,8 @@ var game = {
 	'objects': [],
 	'labels': [],
 	'popTime': 0,
-	'run': true
+	'run': true,
+	'canRestart': false
 };
 var player = {
 	'x': 200 - game.width/12,
@@ -44,6 +45,44 @@ var label = {
 }
 
 // Event triggers
+document.getElementById("playButton").onclick = function(){
+	resizeCanvas();
+	main();
+	document.getElementById("header404").style.display = "none";
+	document.getElementsByClassName("py-5 bg-dark fixed-bottom")[0].style.display = "none";
+}
+
+document.getElementById("game-canvas").onclick = restart;
+document.getElementById("game-canvas").ontouchstart = restart;
+
+function restart(){
+	if (!game.run && game.canRestart){
+		game = {
+			'width': 400,
+			'height': 500,
+			'speed': 2.15,
+			'lifeTime': 0,
+			'objects': [],
+			'labels': [],
+			'popTime': 0,
+			'run': true
+		};
+		player = {
+			'x': 200 - game.width/12,
+			'y': game.height - 50 - game.width/3.5,
+			'sizeX': null,
+			'sizeY': null,
+			'beerTaken': 0,
+			'coefDrunk': 0,
+			'img': null,
+			'score': 0
+		};
+		player.img = document.getElementById("res_car");
+		resizeCanvas();
+		main();
+	}
+}
+
 
 //preventing
 window.resize = resizeCanvas();
@@ -60,13 +99,6 @@ document.body.addEventListener("touchmove", function (e) {
     e.preventDefault();
 }, false);
 
-//test buttons
-document.getElementById("buttonLayer-leftButton").onclick = function(){
-	player.x -= 20;
-}
-document.getElementById("buttonLayer-rightButton").onclick = function(){
-	player.x += 20;
-}
 
 //canvas event catcher
 var activeButton = false;
@@ -81,6 +113,20 @@ function getCursorPos(canvas, mouseEvent) {
     	y: mouseEvent.clientY - rect.top
   	};
 }
+
+document.onkeydown = function(e){
+	e = e || window.event;
+	if (e.keyCode == '37') {
+       cursorPos.x = 1;
+       activeButton = true;
+    }
+    else if (e.keyCode == '39') {
+       cursorPos.x = game.width - 1;
+       activeButton = true;
+    }
+}
+document.onkeyup = function(e){ activeButton = false; }
+
 
 //touch as mouse
 document.getElementById("game-canvas").addEventListener("touchstart", function (e) {
@@ -158,7 +204,7 @@ var render = function(){
 	context.drawImage(player.img, player.x, player.y, player.sizeX, player.sizeY);
 	if (player.x > game.width - player.sizeX || player.x < 0){
 		sfx.crash.play();
-		run = false;
+		game.run = false;
 	}
 
 	// Obstacles
@@ -210,7 +256,6 @@ var render = function(){
 	for (var labelId in game.labels){
 		game.labels[labelId].timeLived++;
 		game.labels[labelId].y++;
-		console.log('rgb(' + (255 - 255*(game.labels[labelId].timeLived/game.labels[labelId].lifeTime)) + ',0,0)');
 		game.labels[labelId].color = 'rgb(' + Math.round(255 - 170*(game.labels[labelId].timeLived/game.labels[labelId].lifeTime)) + ',0,0)';
 		context.font = "18pt Calibri,Geneva,Arial";
 		context.textAlign = "center";
@@ -244,9 +289,19 @@ var main = function(){
 	    		setTimeout(function(){
 	    			context.fillText("CHOISIR", game.width/2, game.height-40);
 	    			context.strokeText("CHOISIR", game.width/2, game.height-40);
+	    			setTimeout(function(){
+	    				context.fillStyle = "#555555";
+	    				context.fillRect(0, 0, game.width, game.height);
+	    				context.fillStyle = "white";
+	    				context.font = "18pt Impact,Calibri,Geneva,Arial";
+	    				context.fillText("Score: " + Math.round(player.score), game.width/2, game.height/4 - 30);
+	    				context.fillText("Tappez pour relancer", game.width/2, game.height/2 - 30);
+	    				game.canRestart = true;
+	    			}, 3000);
 	    		}, 200);
     		}, 500);
     	}, 500);
+
 	}
 }
 
@@ -266,5 +321,3 @@ function resizeCanvas(){
 	label.x = game.width - 30;
 }
 
-resizeCanvas();
-main();
