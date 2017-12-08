@@ -23,16 +23,13 @@
             <div class="form-group">
                 <label for="coche">Personnes que j'emmène : </label>
                 <div><input class="form-check-input" type="checkbox" id="coche" value="pers1"
-                            onchange="checkedCoche(this)">personne
-                    1
+                            onchange="checkedCoche(this)">personne 1
                 </div>
                 <div><input class="form-check-input" type="checkbox" id="coche" value="pers2"
-                            onchange="checkedCoche(this)">personne
-                    2
+                            onchange="checkedCoche(this)">personne 2
                 </div>
                 <div><input class="form-check-input" type="checkbox" id="coche" value="pers3"
-                            onchange="checkedCoche(this)">personne
-                    3
+                            onchange="checkedCoche(this)">personne 3
                 </div>
             </div>
 
