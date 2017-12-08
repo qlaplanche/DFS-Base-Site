@@ -51,12 +51,23 @@ Route::prefix('admin')->group(function () {
 // Events
 
 Route::prefix('event')->group(function () {
-    Route::get('/', 'EventController@index')->name('events');
+    Route::get('/', 'EventController@indexEvent')->name('events');
+
+    Route::get('/create', [
+        'uses' => 'EventController@createEvent',
+        'as' => 'event.create'
+    ]);
+
+    Route::post('/create', [
+        'uses' => 'EventController@storeEvent',
+        'as' => 'event.create'
+    ]);
 
     Route::get('/{eventid}', [
         'uses' => 'EventController@getEvent',
         'as' => 'event.view'
-    ]);
+    ])->where('id', '[0-9]+');
+
 });
 
 Route::get('/event/edit/{user_id}', [

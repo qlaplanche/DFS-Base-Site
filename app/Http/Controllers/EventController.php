@@ -19,13 +19,7 @@ class EventController extends Controller
         $this->middleware('auth');
     }
 
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function indexEvent()
     {
         //Faire condition si il y a event en cours return view viewEvent avec l'id de l'envet en cours
         //Si pas d'event en cours return view myEvents
@@ -34,9 +28,43 @@ class EventController extends Controller
 
     }
 
-
     public function getEvent($eventid)
     {
         return view('event.view', ['event' => Event::findOrFail($eventid)]);
+    }
+
+    public function createEvent()
+    {
+        return view('event.create');
+    }
+
+    public function storeEvent(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:100',
+            'begin_date' => 'required',
+            'visibility' => 'required',
+        ]);
+
+        $event = new Event();
+        $event->name = $request->input("name");
+        $event->description = $request->input("description");
+        $event->place = $request->input("place");
+
+        /*WARNING !!! TEMP AFFECTATION*/
+        $event->photo = "photo";
+
+        $event->begin_date = $request->input("begin_date");
+        $event->end_date = $request->input("end_date");
+        $event->orga_id = Auth::user();
+        $event->visibility = $request->input("visibility");
+
+
+        $message = 'There was an error';
+        if ($event->save()) {
+            $message = 'Event successfully created!';
+        }
+
+        return redirect()->route('event.index')->with('message', $message);
     }
 }
