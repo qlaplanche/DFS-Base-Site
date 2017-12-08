@@ -15,7 +15,7 @@
 					<a class="nav-link" href="/">Accueil</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/myEvent">Mes événements</a>
+					<a class="nav-link" href="{{ route('events')}} ">Mes événements</a>
 				</li>
 				<div class="dropdown-divider"></div>
 				<li class="nav-item">
