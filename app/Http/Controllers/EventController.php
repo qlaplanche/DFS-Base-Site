@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Participant;
+use App\User;
+
 
 use Illuminate\Http\Request;
 
@@ -64,5 +67,11 @@ class EventController extends Controller
         }
 
         return redirect()->route('event.index')->with('message', $message);
+    }
+
+    public function deleteParticipant($event_id, $user_id){
+        $toMatch=['event_id' => $event_id, 'user_id' => $user_id];
+        $participant=Participant::where($toMatch)->delete();
+        return redirect()->route('event.view', ['eventid' => $event_id]);
     }
 }

@@ -36,7 +36,7 @@
 							@foreach($event->participants as $participant)
 							<tr role="row" class="odd">
 								<td>{{ $participant->id }}</td>
-								<td>{{ $participant->user->name }}</td>
+								<td>{{ $participant->user->firstname }}</td>
 								<td>{{ $participant->accepted }}</td>
 								<td>
 									@if(Auth::id() == $event->orga_id)
