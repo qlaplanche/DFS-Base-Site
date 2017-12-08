@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class ProblemHistoriesTableSeeder extends Seeder
@@ -17,16 +18,16 @@ class ProblemHistoriesTableSeeder extends Seeder
             'occured_at' => Carbon::now()->subDays(87),
             'situation' => 'ok',
             'description' => 'Matthieu s\'est perdu',
-            'event' => 3,
-            'participant' => 1,
+            'event_id' => 3,
+            'participant_id' => 1,
         ]);
 
         DB::table('problem_histories')->insert([
             'occured_at' => Carbon::now(),
             'situation' => 'meteo',
             'description' => 'Neige sur la route',
-            'event' => 1,
-            'participant' => 2,
+            'event_id' => 1,
+            'participant_id' => 2,
         ]);
     }
 }

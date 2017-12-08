@@ -12,27 +12,27 @@ class SamsTableSeeder extends Seeder
     public function run()
     {
         DB::table('sams')->insert([
-            'sam' => 1,
-            'participant' => 3,
-            'event' => 2,
+            'sam_id' => 1,
+            'participant_id' => 3,
+            'event_id' => 2,
         ]);
 
         DB::table('sams')->insert([
-            'sam' => 4,
-            'participant' => 1,
-            'event' => 3,
+            'sam_id' => 4,
+            'participant_id' => 1,
+            'event_id' => 3,
         ]);
 
         DB::table('sams')->insert([
-            'sam' => 1,
-            'participant' => 2,
-            'event' => 2,
+            'sam_id' => 1,
+            'participant_id' => 2,
+            'event_id' => 2,
         ]);
 
         DB::table('sams')->insert([
-            'sam' => 3,
-            'participant' => 2,
-            'event' => 1,
+            'sam_id' => 3,
+            'participant_id' => 2,
+            'event_id' => 1,
         ]);
     }
 }
