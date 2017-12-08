@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Event;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,10 +25,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //Faire condition si il y a event en cours return view viewEvent avec l'id de l'envet en cours
-        //Si pas d'event en cours return view myEvents
-        return view('home');
+        $user = Auth::user();
 
+        $event = Event::join('participants', 'participants.event_id', '=', 'events.id')
+            ->join('users', 'users.id', '=', 'participants.user_id')
+            ->where('users.id', $user->id)
+            ->whereDate('begin_date', date('Y-m-d'))
+            ->first();
 
+        if($event){
+            return redirect()->route('event.view', ['id' => $event->id]);
+        }
+
+        return view('event.index');
     }
 }
