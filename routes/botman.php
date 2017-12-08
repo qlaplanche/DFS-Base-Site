@@ -9,7 +9,7 @@ $botman->hears('Comment vas tu \?', function ($bot) {
 });
 
 $botman->hears('hi', function ($bot) {
-	$user = Auth::user()->firstname();
+	$user = Auth::user()->firstname;
     $bot->reply('Bonjour ' . $user . " !!");
 });
 
