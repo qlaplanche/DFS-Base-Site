@@ -22,4 +22,8 @@ class Event extends Model
     public function problems() {
         return $this->hasMany('App\ProblemHistory', 'event_id');
     }
+
+    public function participants() {
+        return $this->hasMany('App\Participant');
+    }
 }

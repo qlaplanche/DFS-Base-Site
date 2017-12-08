@@ -70,10 +70,22 @@ Route::post('/event/edit/{event_id}', [
     'as' => 'event.edit'
 ]);
 
-Route::get('/event/delete/{event_id}', [
+Route::get('/event/delete/{eventid}', [
     'uses' => 'EventController@deleteEvent',
     'as' => 'event.delete'
 ]);
+
+
+Route::get('/event/{event_id}/refuse/{user_id}', [
+    'uses' => 'EventController@refuse',
+    'as' => 'event.refuse'
+]);
+
+Route::get('/event/{event_id}/deleteParticipant/{user_id}', [
+    'uses' => 'EventController@refuse',
+    'as' => 'event.participantDelete'
+]);
+
 
 
 //Notifications
