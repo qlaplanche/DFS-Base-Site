@@ -39,6 +39,9 @@
 
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/jquery-1.12.2.min.js')}}"></script>
+    <script>
+$(".ChatLog").scrollTop(function() { return this.scrollHeight; });
+</script>
   </body>
 
 </html>

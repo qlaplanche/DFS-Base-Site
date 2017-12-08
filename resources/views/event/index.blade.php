@@ -12,6 +12,7 @@
 			<a class="nav-link" data-toggle="tab" href="#past">Passés</a>
 		</li>
     </ul>
+
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade active" id="current">
 			@include('subviews.eventTable', ['datas' => $currents])
