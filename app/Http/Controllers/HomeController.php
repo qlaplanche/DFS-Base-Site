@@ -37,6 +37,6 @@ class HomeController extends Controller
             return redirect()->route('event.view', ['id' => $event->id]);
         }
 
-        return view('event.index');
+        return redirect()->route('events');
     }
 }
