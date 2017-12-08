@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Participant;
 use App\User;
+use DB;
 
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -24,9 +25,23 @@ class EventController extends Controller
 
     public function indexEvent()
     {
-        //Faire condition si il y a event en cours return view viewEvent avec l'id de l'envet en cours
-        //Si pas d'event en cours return view myEvents
-        return view('event.index', ['currents' => [], 'futures' => [], 'pasts' => []]);
+
+        //DB::EnableQueryLog();
+
+        $pastEvents = Event::whereDate('begin_date', "<", date('Y-m-d'))->get();
+        $currentEvents = Event::whereDate('begin_date', date('Y-m-d'))->get();
+        $futurEvents = Event::whereDate('begin_date', ">", date('Y-m-d'))->get();
+
+        // dd($pastEvents);
+        // dd($currentEvents);
+        // dd($futurEvents);
+        // die();
+
+        return view('event.index', [
+            'currents' => $currentEvents, 
+            'futures' => $futurEvents, 
+            'pasts' => $pastEvents
+        ]);
     }
 
     public function getEvent($eventid)
