@@ -10,32 +10,36 @@
     <div id="step1" class="container">
         <div class="row">
 
-            <label for="text" class="form-control col-md-offset-4">Nom</label>
+            <label for="name" class="form-control col-md-offset-4">Nom</label>
             <input type="text" class="form-control col-md-offset-4 col-md-4" id="name" placeholder="Entrez votre nom">
+        </div>
+
+        <div class="row">
+            <label for="place" class="form-control col-md-offset-4">Lieu</label>
+            <input type="text" class="form-control col-md-offset-4 col-md-4" id="place" placeholder="Entrez le lieu de l'évènement">
         </div>
 
 
         <div class="row">
             <div class="col-md-3">
-                <label for="date" class="form-control col-md-offset-1">Date de début</label>
-                <input type="date" class="form-control col-md-offset-1 col-md-8" id="date" placeholder="Date de début">
+                <label for="begin_date" class="form-control col-md-offset-1">Date de début</label>
+                <input type="date" class="form-control col-md-offset-1 col-md-8" id="begin_date" placeholder="Date de début">
 
             </div>
 
             <div class="col-md-3">
-                <label for="time" class="form-control col-md-offset-1">Heure de début</label>
-                <input type="time" class="form-control col-md-offset-1 col-md-4" id="time" placeholder="Heure de début">
+                <label for="begin_time" class="form-control col-md-offset-1">Heure de début</label>
+                <input type="time" class="form-control col-md-offset-1 col-md-4" id="begin_time" placeholder="Heure de début">
             </div>
 
             <div class="col-md-3">
-                <label for="date" class="form-control col-md-offset-1">Date de fin</label>
-                <input type="date" class="form-control col-md-offset-1 col-md-8" id="location"
-                       placeholder="Date de fin">
+                <label for="end_date" class="form-control col-md-offset-1">Date de fin</label>
+                <input type="date" class="form-control col-md-offset-1 col-md-8" id="end_date" placeholder="Date de fin">
             </div>
 
             <div class="col-md-3">
-                <label for="time" class="form-control col-md-offset-1">Heure de fin</label>
-                <input type="time" class="form-control col-md-offset-1 col-md-4" id="time" placeholder="Heure de fin">
+                <label for="end_time" class="form-control col-md-offset-1">Heure de fin</label>
+                <input type="time" class="form-control col-md-offset-1 col-md-4" id="end_time" placeholder="Heure de fin">
             </div>
 
         </div>
@@ -59,8 +63,8 @@
     <div id="step3" class="container">
         <div class="row ">
             <div class="col-md-4 col-md-offset-2">
-                <label for="file" class="form-control-file col-md-offset-1">Photo</label>
-                <input type="file" class="form-control-file col-md-offset-1" id="img" placeholder="Photo">
+                <label for="photo" class="form-control-file col-md-offset-1">Photo</label>
+                <input type="file" class="form-control-file col-md-offset-1" id="photo" placeholder="Photo">
 
 
             </div>
@@ -72,15 +76,15 @@
                 <button onclick="onYes();" type="button" class="btn btn-success" style="margin: 0 10px" id="yes">
                     Public
                 </button>
-                <input id="visibilite" value="-1" style="display: none;">
+                <input id="visibility" value="-1" style="display: none;">
             </div>
 
         </div>
 
         <div class="row">
             <div class="col-md-3 col-md-offset-4">
-                <label for="test" class="form-control">Description</label>
-                <input type="rext" class="form-control " id="description" placeholder="Description de l'événement">
+                <label for="description" class="form-control">Description</label>
+                <input type="text" class="form-control " id="description" placeholder="Description de l'événement">
             </div>
         </div>
 
@@ -96,7 +100,7 @@
 
     </div>
 
-    <br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br>
 </form>
     <script>
         function onYes() {
@@ -117,9 +121,9 @@
 
         function submit(){
             if(document.getElementById("yes").classList.contains("disabled"))
-                document.getElementById("visibilite").value=1;
+                document.getElementById("visibility").value=1;
             else
-                document.getElementById("visibilite").value=0;
+                document.getElementById("visibility").value=0;
             document.getElementById("myForm").submit();
         }
 
