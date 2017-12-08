@@ -32,7 +32,6 @@ class EventController extends Controller
         return view('event.index', ['currents' => [], 'futures' => [], 'pasts' => []]);
     }
 
-
     public function getEvent($eventid)
     {
         return view('event.view', ['event' => Event::findOrFail($eventid)]);
