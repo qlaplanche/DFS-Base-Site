@@ -1,6 +1,25 @@
-#content.container {
-    margin-top: 90px;
+#alerts {
+    margin-top:70px;
 }
+
+#alerts .alert {
+    padding: 1rem 1.25rem;
+}
+
+#alerts .close {
+    float: right;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1;
+    color: #000;
+    opacity: .5;
+}
+
+#content.container {
+    margin-top: 10px;
+}
+
+
 
 .navbar-brand>span {
     font-size: 12px;
