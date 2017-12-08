@@ -24,6 +24,17 @@ class Event extends Model
     }
 
     public function participants() {
-        return $this->hasMany('App\Participant');
+        return $this->hasMany('App\Participant', 'event_id');
+    }
+
+    public function delete()
+    {
+        DB::transaction(function()
+        {
+            $this->posts()->delete();
+            $this->participants()->delete();
+            $this->problems()->delete();
+            parent::delete();
+        });
     }
 }

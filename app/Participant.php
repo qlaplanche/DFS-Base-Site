@@ -39,4 +39,13 @@ class Participant extends Model
     public function event() {
         return $this->hasOne('App\Event', 'event_id');
     }
+
+    public function delete()
+    {
+        DB::transaction(function()
+        {
+            $this->sams()->delete();
+            parent::delete();
+        });
+    }
 }
