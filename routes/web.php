@@ -89,6 +89,11 @@ Route::get('/event/delete/{eventid}', [
     'as' => 'event.delete'
 ]);
 
+Route::get('/event/notify/', [
+    'uses' => 'EventController@notifyEvent',
+    'as' => 'event.notify'
+]);
+
 
 Route::get('/event/{event_id}/refuse/{user_id}', [
     'uses' => 'EventController@refuse',

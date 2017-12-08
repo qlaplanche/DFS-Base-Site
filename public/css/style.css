@@ -16,11 +16,24 @@
 }
 
 #content.container {
-    margin-top: 10px;
+    margin: 10px auto;
 }
 
 
 
 .navbar-brand>span {
     font-size: 12px;
+}
+
+.btn-group.fab {
+    right:0;
+    left: auto;
+}
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+.modal-dialog {
+    margin-top: 90px;
 }

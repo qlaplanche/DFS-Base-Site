@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\ProblemHistory;
 use App\Participant;
 use App\User;
 
@@ -34,6 +35,41 @@ class EventController extends Controller
         return view('event.view', ['event' => Event::findOrFail($eventid)]);
     }
 
+    /**
+     * Create new item
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createProblem(Request $request)
+    {
+        $this->validate($request, [
+            'description' => 'required|max:200',
+            'longitude' => 'required|max:50',
+            'latitude' => 'required|max:50',
+            'situation' => 'required',
+        ]);
+
+        $problem = new ProblemHistory();
+        $problem->description = $request->input("description");
+        $problem->longitude = $request->input("longitude");
+        $problem->latitude = $request->input("latitude");
+
+        
+
+
+        $message = 'There was an error';
+        if ($problem->save()) {
+            $message = 'Problem successfully created!';
+            session(['alert-class' => 'warning']);
+            session(['alert-msg' => 'Je suis perdu']);
+            session(['alert-btn' => 'Terminée']);
+        }
+
+        return redirect()->route('item.index')->with('message', $message);
+
+    }
+
+    
     public function createEvent()
     {
         return view('event.create');
