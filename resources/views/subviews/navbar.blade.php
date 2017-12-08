@@ -9,7 +9,7 @@
 			<ul class="navbar-nav ml-auto">
 				@if (Auth::check())
 				<li class="nav-item">
-					<a class="nav-link btn" href="/createEvent">Créér événement</a>
+					<a class="nav-link btn" href="/event/create">Créér événement</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/">Accueil</a>
