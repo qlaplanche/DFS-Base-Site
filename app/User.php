@@ -26,4 +26,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function participants() {
+        return $this->hasMany('App\Participant', 'user_id');
+    }
+
+    public function events() {
+        return $this->hasMany('App\Event', 'orga_id');
+    }
+
+    public function delete()
+    {
+        DB::transaction(function()
+        {
+            $this->participants()->delete();
+            $this->events()->delete();
+            parent::delete();
+        });
+    }
 }

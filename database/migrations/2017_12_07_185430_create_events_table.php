@@ -21,11 +21,11 @@ class CreateEventsTable extends Migration
             $table->string('photo')->nullable();
             $table->dateTime('begin_date');
             $table->dateTime('end_date')->nullable();
-            $table->integer('orga')->unsigned();
+            $table->integer('orga_id')->unsigned();
             $table->boolean('visibility');
             $table->timestamps();
 
-            $table->foreign('orga')->references('id')->on('users');
+            $table->foreign('orga_id')->references('id')->on('users');
         });
     }
 

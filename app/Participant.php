@@ -12,7 +12,7 @@ class Participant extends Model
      * @var array
      */
     protected $fillable = [
-        'user', 'event',
+        'user_id', 'event_id',
     ];
 
 
@@ -21,7 +21,7 @@ class Participant extends Model
      */
     public function sams()
     {
-        return $this->hasMany('App\Sam', 'sam');
+        return $this->hasMany('App\Sam', 'sam_id');
     }
 
     /**
@@ -29,6 +29,23 @@ class Participant extends Model
      */
     public function problemHistories()
     {
-        return $this->hasMany('App\ProblemHistory', 'participant');
+        return $this->hasMany('App\ProblemHistory', 'participant_id');
+    }
+
+    public function user() {
+        return $this->hasOne('App\User', 'id');
+    }
+
+    public function event() {
+        return $this->hasOne('App\Event', 'event_id');
+    }
+
+    public function delete()
+    {
+        DB::transaction(function()
+        {
+            $this->sams()->delete();
+            parent::delete();
+        });
     }
 }
