@@ -32,7 +32,13 @@ class MyBotCommands {
 			}
 			if ($clouds == 'nuageux') {
 				$clouds = $clouds . ' attention !';
-			}	
+			}
+			if ($clouds == 'ciel dégagé') {
+				$clouds = 'dégagé';
+			}
+			if ($clouds == 'dégagé' AND $weather->temperature->getValue() > 0) {
+				$clouds = $clouds . ' Vous pouvez rouler en toute tranquilité !';
+			}
        		$bot->reply('Meteo de ' . $ville . " : " .$temp . " et le ciel est " . $clouds);
 		}
     }
